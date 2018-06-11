@@ -83,10 +83,19 @@ public class ChooseAreaFragment extends Fragment {
                 }
                 else if (currentLevel==LEVEL_COUNTY){//若当前地区等级为县级
                     String weatherId=countyList.get(position).getWeatherId();//根据县列表获取当前县的天气ID
-                    Intent intent=new Intent(getActivity(),WeatherActivity.class);
-                    intent.putExtra("weather_id",weatherId);
-                    startActivity(intent);//跳转至天气活动并传递天气ID
-                    getActivity().finish();//销毁当前活动
+                    //判断活动是否为指定类的实例：instanceof
+                    if (getActivity() instanceof MainActivity){//当为选择地区活动时
+                        Intent intent=new Intent(getActivity(),WeatherActivity.class);
+                        intent.putExtra("weather_id",weatherId);
+                        startActivity(intent);//跳转至天气活动并传递天气ID
+                        getActivity().finish();//销毁当前活动
+                    }
+                    else if (getActivity() instanceof WeatherActivity){//当为显示天气活动时
+                        WeatherActivity activity=(WeatherActivity)getActivity();
+                        activity.drawerLayout.closeDrawers();//关闭滑动菜单布局中的所有滑动视图 DrawerLayout的closeDrawers()
+                        activity.swipeRefresh.setRefreshing(true);//显示下拉刷新的进度条
+                        activity.requestWeather(weatherId);//更新天气（从服务器获取天气信息存入缓存，解析并显示）
+                    }
                 }
             }
         });

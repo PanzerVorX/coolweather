@@ -10,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary">
+
         <!--上一级地区标题-->
         <TextView
             android:id="@+id/title_text"
