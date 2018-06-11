@@ -33,7 +33,7 @@ public class AutoUpdateService extends Service {//后台定时更新缓存服务
         long triggerAtTime= SystemClock.elapsedRealtime()+anHour;//触发任务时间=开始计时时间+延时时间
         Intent i=new Intent(this,AutoUpdateService.class);//任务跳转的Intent
         PendingIntent pi=PendingIntent.getService(this,0,i,0);
-        manager.cancel(pi);//防止触发开启多次Alarm任务：每次开启Alarm任务前取消指定PendingIntent的Alarm定时服务：AlarmManager的cancel() 参数为PendingIntent
+        manager.cancel(pi);//防止触发重复开启多次Alarm任务：每次开启Alarm任务前取消指定PendingIntent的Alarm定时服务：AlarmManager的cancel() 参数为PendingIntent
         manager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP,triggerAtTime,pi);
         return super.onStartCommand(intent,flags,startId);
     }

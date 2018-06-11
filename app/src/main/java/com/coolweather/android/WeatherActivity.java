@@ -57,7 +57,7 @@ public class WeatherActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT>=21){//Android5.0之前无法更改状态栏颜色
             View decorView=getWindow().getDecorView();//获取DecorView：Window的getDecorView()   获取Window：Activity的getWindow()
             decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN|View.SYSTEM_UI_FLAG_LAYOUT_STABLE);//改变系统UI显示：DecorView的setSystemUiVisibility()参数为View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN|View.SYSTEM_UI_FLAG_LAYOUT_STABLE代表活动布局可显示在状态栏上
-            getWindow().setStatusBarColor(Color.TRANSPARENT);//设置状态栏颜色：Window的setStatusBarColor() 参数值为TRANSPARENT时代透明
+            getWindow().setStatusBarColor(Color.TRANSPARENT);//设置状态栏颜色：Window的setStatusBarColor() 参数值为TRANSPARENT时半透明
         }
         setContentView(R.layout.activity_weather);
 
@@ -94,7 +94,7 @@ public class WeatherActivity extends AppCompatActivity {
         }
         String bingPic=prefs.getString("bing_pic",null);//获取图片的URL缓存
         if (bingPic!=null){//若本地存在图片URL缓存
-            Glide.with(this).load(bingPic).into(bingPicImg);//Glide加载图片后会将图片缓存到本地，若URL不变则再次加载会直接读取图片缓存
+            Glide.with(this).load(bingPic).into(bingPicImg);//Glide通过URL加载图片后会将图片缓存到本地，若URL不变则再次加载会直接读取图片缓存
         }
         else {
             loadBingPic();//访问图片接口（http://guolin.tech/api/bing_pic）将返回的图片URL存入本地，并通过Glide加载到背景视图来显示
